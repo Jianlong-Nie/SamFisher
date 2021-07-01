@@ -1,5 +1,6 @@
+import moment from 'moment';
 import React, {useMemo} from 'react';
-import {processColor, StyleSheet} from 'react-native';
+import {Alert, processColor, StyleSheet} from 'react-native';
 import {
   LineChart,
   LineDataset,
@@ -20,6 +21,17 @@ export interface IDataItemProps {
 }
 
 export default function LineGraph(): React.ReactElement {
+  const dates: string[] = useMemo(
+    () =>
+      testData.map((item: IDataItemProps) => {
+        let date = moment(item.date)
+          .format('MMM Do')
+          .replace('nd', '')
+          .replace('th', '');
+        return date;
+      }),
+    [],
+  );
   const config: LineDatasetConfig = useMemo(
     () => ({
       drawCircles: true,
@@ -34,10 +46,11 @@ export default function LineGraph(): React.ReactElement {
     }),
     [],
   );
-  let values: Array<number | LineValue> = useMemo(
+  let values: any[] = useMemo(
     () =>
-      testData.map((item: IDataItemProps) => ({
+      testData.reverse().map((item: IDataItemProps) => ({
         y: item.value,
+        marker: 'sdfsdf',
       })),
     [],
   );
@@ -62,8 +75,12 @@ export default function LineGraph(): React.ReactElement {
         easingY: 'EaseInOutQuart',
       }}
       xAxis={{
+        enabled: true,
         position: 'BOTTOM',
-        drawLabels: false,
+        drawLabels: true,
+        valueFormatter: dates,
+        granularityEnabled: true,
+        granularity: 1,
       }}
       yAxis={{
         left: {
