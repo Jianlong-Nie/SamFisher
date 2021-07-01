@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {StyleSheet} from 'react-native';
+import {processColor, StyleSheet} from 'react-native';
 import {
   LineChart,
   LineDataset,
@@ -18,7 +18,22 @@ export interface IDataItemProps {
   unit: IUnitProps;
   value: number;
 }
+
 export default function LineGraph(): React.ReactElement {
+  const config: LineDatasetConfig = useMemo(
+    () => ({
+      drawCircles: true,
+      circleColor: processColor('#EC6F22'),
+      circleHoleColor: processColor('#EC6F22'),
+      circleRadius: 5,
+      lineWidth: 2,
+      color: processColor('#8EC5CA'),
+      drawValues: false,
+      //   visible: false,
+      //   drawFilled: true,
+    }),
+    [],
+  );
   let values: Array<number | LineValue> = useMemo(
     () =>
       testData.map((item: IDataItemProps) => ({
@@ -27,12 +42,40 @@ export default function LineGraph(): React.ReactElement {
     [],
   );
   let dataSets: LineDataset[] = useMemo(
-    () => [{values, label: 'demo'}],
-    [values],
+    () => [{values, config}],
+    [config, values],
   );
   return (
     <LineChart
       style={styles.chart}
+      scaleEnabled={true}
+      scaleXEnabled={true}
+      scaleYEnabled={true}
+      pinchZoom={true}
+      doubleTapToZoomEnabled={false}
+      legend={{
+        enabled: false,
+        textSize: 14,
+        form: 'CIRCLE',
+        wordWrapEnabled: true, //??
+      }}
+      animation={{
+        durationX: 0,
+        durationY: 600,
+        easingY: 'EaseInOutQuart',
+      }}
+      xAxis={{
+        position: 'BOTTOM',
+        drawLabels: false,
+      }}
+      yAxis={{
+        left: {
+          enabled: false,
+        },
+        right: {
+          enabled: true,
+        },
+      }}
       data={{
         dataSets,
       }}
