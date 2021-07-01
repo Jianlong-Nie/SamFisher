@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {processColor, StyleSheet} from 'react-native';
 import {
   LineChart,
@@ -42,7 +42,7 @@ export default function LineGraph(): React.ReactElement {
     [],
   );
   let dataSets: LineDataset[] = useMemo(
-    () => [{values, config}],
+    () => [{values, config, label: ''}],
     [config, values],
   );
   return (
@@ -55,9 +55,6 @@ export default function LineGraph(): React.ReactElement {
       doubleTapToZoomEnabled={false}
       legend={{
         enabled: false,
-        textSize: 14,
-        form: 'CIRCLE',
-        wordWrapEnabled: true, //??
       }}
       animation={{
         durationX: 0,
