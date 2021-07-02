@@ -1,11 +1,10 @@
 import moment from 'moment';
 import React, {useMemo} from 'react';
-import {Alert, processColor, StyleSheet} from 'react-native';
+import {processColor, StyleSheet} from 'react-native';
 import {
   LineChart,
   LineDataset,
   LineDatasetConfig,
-  LineValue,
 } from 'react-native-charts-wrapper';
 import {testData} from '../../mocks/data';
 
