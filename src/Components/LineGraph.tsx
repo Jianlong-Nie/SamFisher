@@ -64,8 +64,14 @@ export default function LineGraph(): React.ReactElement {
       scaleEnabled={true}
       scaleXEnabled={true}
       scaleYEnabled={true}
+      highlightPerTapEnabled={true}
+      highlightPerDragEnabled={false}
       pinchZoom={true}
       doubleTapToZoomEnabled={false}
+      onSelect={value => {
+        alert("click value")
+      }}
+      onChange={event => console.log(event.nativeEvent)}
       legend={{
         enabled: false,
       }}
