@@ -68,8 +68,15 @@ export default function LineGraph(): React.ReactElement {
       highlightPerDragEnabled={false}
       pinchZoom={true}
       doubleTapToZoomEnabled={false}
-      onSelect={value => {
-        alert("click value")
+      onSelect={event => {
+        let entry = event.nativeEvent;
+        if (entry != null) {
+          alert(JSON.stringify(entry));
+        }
+
+        console.log('====================================');
+        console.log(entry);
+        console.log('====================================');
       }}
       onChange={event => console.log(event.nativeEvent)}
       legend={{
